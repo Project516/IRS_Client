@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/eaglercraft-1.8-workspace.iml" filepath="$PROJECT_DIR$/.idea/eaglercraft-1.8-workspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/IRS_Client.iml" filepath="$PROJECT_DIR$/.idea/IRS_Client.iml" />
     </modules>
   </component>
 </project>
