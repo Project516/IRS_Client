@@ -2,7 +2,6 @@
 .settings
 .classpath
 .project
-.idea
 build
 bin
 proxyServer/bin
