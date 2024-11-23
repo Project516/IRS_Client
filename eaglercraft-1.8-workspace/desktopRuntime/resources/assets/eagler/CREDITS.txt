@@ -1,3 +1,12 @@
+ 
+ IRS_Client Developers
+ ~~~~~~~~~~~~~~~~~~~~~~~
+
+ Project516:
+
+  - Creator of this repository (wow i know)
+
+  
 
  EaglercraftX Developers
  ~~~~~~~~~~~~~~~~~~~~~~~
