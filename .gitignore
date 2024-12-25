@@ -15,5 +15,3 @@ desktopRuntime/_eagstorage*
 desktopRuntime/filesystem/*
 desktopRuntime/downloads/*
 desktopRuntime/screenshots/*
-.idea
-.vscode
