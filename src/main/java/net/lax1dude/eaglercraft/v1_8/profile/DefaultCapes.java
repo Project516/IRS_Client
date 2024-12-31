@@ -44,9 +44,17 @@ public enum DefaultCapes {
 	VANILLA(22, "Vanilla", new ResourceLocation("eagler:capes/22.vanilla.png")),
 	TIKTOK(23, "TikTok", new ResourceLocation("eagler:capes/23.tiktok.png")),
 	PURPLE_HEART(24, "Purple Heart", new ResourceLocation("eagler:capes/24.purple_heart.png")),
-	CHERRY_BLOSSOM(25, "Cherry Blossom", new ResourceLocation("eagler:capes/25.cherry_blossom.png"));
+	CHERRY_BLOSSOM(25, "Cherry Blossom", new ResourceLocation("eagler:capes/25.cherry_blossom.png")),
+	_MCC(26, "Minecraft Championship", new ResourceLocation("eagler:capes/26.mcc.png")),
+	EXPERIENCE(27, "Mojang Experience", new ResourceLocation("eagler:capes/27.experience.png")),
+	OFFICE(28, "Mojang Office", new ResourceLocation("eagler:capes/28.office.png")),
+	CHINA(29, "Chinese Translator", new ResourceLocation("eagler:capes/29.chine.png")),
+	JAPAN(30, "Japanese Translator", new ResourceLocation("eagler:capes/30.japan.png")),
+	TURTLE(31, "Turtle", new ResourceLocation("eagler:capes/31.turtle.png")),
+	VALENTINE(32, "Valentine", new ResourceLocation("eagler:capes/32.valentine.png")),
+	TEST(33, "Test", new ResourceLocation("eagler:capes/33.test.png"));
 	
-	public static final DefaultCapes[] defaultCapesMap = new DefaultCapes[26];
+	public static final DefaultCapes[] defaultCapesMap = new DefaultCapes[34];
 	
 	public final int id;
 	public final String name;
