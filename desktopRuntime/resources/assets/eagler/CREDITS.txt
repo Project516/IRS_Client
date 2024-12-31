@@ -1,4 +1,13 @@
 
+ Eaglercraftex Developer
+ ~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ project516:
+
+ - Creator of Eaglercraftex
+
+
+
  EaglercraftX Developers
  ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -860,3 +869,67 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+===============
+Minecraft Credits
+===============
+
+Created by:
+			Markus Persson
+
+Game design, programming and graphics:
+			Markus Persson
+			Jens Bergensten
+			Nathan Adams
+			Ryan Holtz
+			Michael Stoyke
+
+Programming:
+			Erik Broes
+
+Music and sound:
+			Daniel Rosenfeld
+
+Ingame artwork and paintings:
+			Kristoffer Zetterstrand
+
+End game narrative:
+			Julian Gough
+
+Website development:
+			Tobias Möllstam
+			Daniel Frisk
+			Leonard Axelsson
+			Jens Bergensten
+			Markus Persson
+
+Logo and promotional artwork:
+			Markus Toivonen
+
+Business and administration:
+			Carl Manneh
+			Daniel Kaplan
+
+Director of fun:
+			Lydia Winters
+
+Number crunching and statistics:
+			Patrick Geuder
+
+Additional programming:
+			Paul Spooner
+			Ryan 'Scaevolus' Hitchman
+			Elliot 'Hippoplatimus' Segal
+
+Developers of Mo' Creatures (horses etc):
+			John Olarte (DrZhark)
+			Kent Christian Jensen
+			Dan Roque
+
+Technologies used:
+			Java by Oracle
+			LWJGL by many talented people
+			"3d Sound System" by Paul Lamb
+			JOrbis by JCraft
