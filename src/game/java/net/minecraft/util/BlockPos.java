@@ -12,7 +12,7 @@ import net.minecraft.entity.Entity;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -31,14 +31,14 @@ public class BlockPos extends Vec3i {
 	 * The BlockPos with all coordinates 0
 	 */
 	public static final BlockPos ORIGIN = new BlockPos(0, 0, 0);
-	private static final int NUM_X_BITS = 1 + MathHelper.calculateLogBaseTwo(MathHelper.roundUpToPowerOfTwo(30000000));
-	private static final int NUM_Z_BITS = NUM_X_BITS;
-	private static final int NUM_Y_BITS = 64 - NUM_X_BITS - NUM_Z_BITS;
-	private static final int Y_SHIFT = 0 + NUM_Z_BITS;
-	private static final int X_SHIFT = Y_SHIFT + NUM_Y_BITS;
-	private static final long X_MASK = (1L << NUM_X_BITS) - 1L;
-	private static final long Y_MASK = (1L << NUM_Y_BITS) - 1L;
-	private static final long Z_MASK = (1L << NUM_Z_BITS) - 1L;
+	public static final int NUM_X_BITS = 26;
+	public static final int NUM_Z_BITS = NUM_X_BITS;
+	public static final int NUM_Y_BITS = 64 - NUM_X_BITS - NUM_Z_BITS;
+	public static final int Y_SHIFT = 0 + NUM_Z_BITS;
+	public static final int X_SHIFT = Y_SHIFT + NUM_Y_BITS;
+	public static final long X_MASK = (1L << NUM_X_BITS) - 1L;
+	public static final long Y_MASK = (1L << NUM_Y_BITS) - 1L;
+	public static final long Z_MASK = (1L << NUM_Z_BITS) - 1L;
 
 	public BlockPos() {
 		super(0, 0, 0);

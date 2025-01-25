@@ -3,16 +3,21 @@ package net.lax1dude.eaglercraft.v1_8.opengl;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.ByteBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.FloatBuffer;
 import net.lax1dude.eaglercraft.v1_8.internal.buffer.IntBuffer;
-import java.util.Arrays;
 import java.util.BitSet;
-import java.util.Comparator;
+import java.util.function.IntBinaryOperator;
+
+import com.carrotsearch.hppc.sorting.QuickSort;
 
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.lax1dude.eaglercraft.v1_8.vector.Vector3f;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MathHelper;
+import net.optifine.render.RenderEnv;
 
 /**
  * Copyright (c) 2022-2023 lax1dude, ayunami2000. All Rights Reserved.
@@ -49,6 +54,9 @@ public class WorldRenderer {
 	
 	private boolean hasBeenFreed = false;
 
+	private EnumWorldBlockLayer blockLayer = null;
+	public RenderEnv renderEnv = null;
+
 	public WorldRenderer(int bufferSizeIn) {
 		this.byteBuffer = GLAllocation.createDirectByteBuffer(bufferSizeIn << 2);
 		this.intBuffer = this.byteBuffer.asIntBuffer();
@@ -84,12 +92,37 @@ public class WorldRenderer {
 		}
 	}
 
+	private float[] sortArrayCacheA = null;
+	private int[] sortArrayCacheB = null;
+	private BitSet sortBitSetCache = null;
+	private final IntBinaryOperator sortArrayCacheLambda = this::sortFunction_func_181674_a;
+	private final IntBinaryOperator swapArrayCacheLambda = this::swapFunction_func_181674_a;
+
+	protected int sortFunction_func_181674_a(int integer, int integer1) {
+		return Float.compare(sortArrayCacheA[sortArrayCacheB[integer1]], sortArrayCacheA[sortArrayCacheB[integer]]);
+	}
+
+	protected int swapFunction_func_181674_a(int i, int j) {
+		int swap = sortArrayCacheB[i];
+		sortArrayCacheB[i] = sortArrayCacheB[j];
+		sortArrayCacheB[j] = swap;
+		return 0;
+	}
+
 	/**
 	 * MOST LIKELY USED TO SORT QUADS BACK TO FRONT
 	 */
 	public void func_181674_a(float parFloat1, float parFloat2, float parFloat3) {
 		int i = this.vertexCount / 4;
-		final float[] afloat = new float[i];
+		if(i == 0) {
+			return;
+		}
+
+		float[] afloat = sortArrayCacheA;
+		if(afloat == null || afloat.length < i) {
+			afloat = new float[i];
+			sortArrayCacheA = afloat;
+		}
 
 		for (int j = 0; j < i; ++j) {
 			afloat[j] = func_181665_a(this.floatBuffer, (float) ((double) parFloat1 + this.xOffset),
@@ -97,30 +130,38 @@ public class WorldRenderer {
 					this.vertexFormat.attribStride >> 2, j * this.vertexFormat.attribStride);
 		}
 
-		Integer[] ainteger = new Integer[i];
-
-		for (int k = 0; k < ainteger.length; ++k) {
-			ainteger[k] = Integer.valueOf(k);
+		int[] ainteger = sortArrayCacheB;
+		if(ainteger == null || ainteger.length < i) {
+			ainteger = new int[i];
+			sortArrayCacheB = ainteger;
 		}
 
-		Arrays.sort(ainteger, new Comparator<Integer>() {
-			public int compare(Integer integer, Integer integer1) {
-				return Float.compare(afloat[integer1.intValue()], afloat[integer.intValue()]);
-			}
-		});
-		BitSet bitset = new BitSet();
+		for (int k = 0; k < i; ++k) {
+			ainteger[k] = k;
+		}
+
+		QuickSort.sort(0, i, sortArrayCacheLambda, swapArrayCacheLambda);
+
+		BitSet bitset = sortBitSetCache;
+		if(bitset == null) {
+			bitset = new BitSet();
+			sortBitSetCache = bitset;
+		}else {
+			bitset.clear();
+		}
+
 		int l = this.vertexFormat.attribStride;
 		int[] aint = new int[l];
 
-		for (int l1 = 0; (l1 = bitset.nextClearBit(l1)) < ainteger.length; ++l1) {
-			int i1 = ainteger[l1].intValue();
+		for (int l1 = 0; (l1 = bitset.nextClearBit(l1)) < i; ++l1) {
+			int i1 = ainteger[l1];
 			if (i1 != l1) {
 				this.intBuffer.limit(i1 * l + l);
 				this.intBuffer.position(i1 * l);
 				this.intBuffer.get(aint);
 				int j1 = i1;
 
-				for (int k1 = ainteger[i1].intValue(); j1 != l1; k1 = ainteger[k1].intValue()) {
+				for (int k1 = ainteger[i1]; j1 != l1; k1 = ainteger[k1]) {
 					this.intBuffer.limit(k1 * l + l);
 					this.intBuffer.position(k1 * l);
 					IntBuffer intbuffer = this.intBuffer.duplicate();
@@ -519,6 +560,20 @@ public class WorldRenderer {
 			this.putColorRGB_F(red, green, blue, i + 1);
 		}
 
+	}
+
+	public RenderEnv getRenderEnv(IBlockState p_getRenderEnv_1_, BlockPos p_getRenderEnv_2_) {
+		if (this.renderEnv == null) {
+			this.renderEnv = new RenderEnv(p_getRenderEnv_1_, p_getRenderEnv_2_);
+			return this.renderEnv;
+		} else {
+			this.renderEnv.reset(p_getRenderEnv_1_, p_getRenderEnv_2_);
+			return this.renderEnv;
+		}
+	}
+
+	public EnumWorldBlockLayer getBlockLayer() {
+		return this.blockLayer;
 	}
 
 	public class State {

@@ -7,8 +7,8 @@ import net.lax1dude.eaglercraft.v1_8.log4j.LogManager;
 import net.lax1dude.eaglercraft.v1_8.log4j.Logger;
 import net.minecraft.util.MathHelper;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.carrotsearch.hppc.IntObjectHashMap;
+import com.carrotsearch.hppc.IntObjectMap;
 
 import net.lax1dude.eaglercraft.v1_8.EagRuntime;
 import net.lax1dude.eaglercraft.v1_8.internal.GLObjectMap;
@@ -213,15 +213,18 @@ public class EaglercraftGPU {
 		++GlStateManager.stateNormalSerial;
 	}
 	
-	private static final Map<Integer,String> stringCache = new HashMap<>();
+	private static final IntObjectMap<String> stringCache = new IntObjectHashMap<>();
 
 	public static final String glGetString(int param) {
 		String str = stringCache.get(param);
 		if(str == null) {
 			str = _wglGetString(param);
+			if(str == null) {
+				str = "";
+			}
 			stringCache.put(param, str);
 		}
-		return str;
+		return str.length() == 0 ? null : str;
 	}
 
 	public static final void glGetInteger(int param, int[] values) {
@@ -243,6 +246,7 @@ public class EaglercraftGPU {
 
 	public static final void glTexImage2D(int target, int level, int internalFormat, int w, int h, int unused,
 			int format, int type, ByteBuffer pixels) {
+		GlStateManager.setTextureCachedSize(target, w, h);
 		if(glesVers >= 300) {
 			_wglTexImage2D(target, level, internalFormat, w, h, unused, format, type, pixels);
 		}else {
@@ -253,6 +257,7 @@ public class EaglercraftGPU {
 
 	public static final void glTexImage2D(int target, int level, int internalFormat, int w, int h, int unused,
 			int format, int type, IntBuffer pixels) {
+		GlStateManager.setTextureCachedSize(target, w, h);
 		if(glesVers >= 300) {
 			_wglTexImage2D(target, level, internalFormat, w, h, unused, format, type, pixels);
 		}else {
@@ -267,6 +272,7 @@ public class EaglercraftGPU {
 	}
 
 	public static final void glTexStorage2D(int target, int levels, int internalFormat, int w, int h) {
+		GlStateManager.setTextureCachedSize(target, w, h);
 		if(texStorageCapable && (glesVers >= 300 || levels == 1 || (MathHelper.calculateLogBaseTwo(Math.max(w, h)) + 1) == levels)) {
 			_wglTexStorage2D(target, levels, internalFormat, w, h);
 		}else {
@@ -911,7 +917,6 @@ public class EaglercraftGPU {
 		PlatformOpenGL.enterVAOEmulationHook();
 		GLSLHeader.init();
 		DrawUtils.init();
-		SpriteLevelMixer.initialize();
 		if(instancingCapable) {
 			InstancedFontRenderer.initialize();
 			InstancedParticleRenderer.initialize();
@@ -925,7 +930,6 @@ public class EaglercraftGPU {
 	public static final void destroyCache() {
 		GLSLHeader.destroy();
 		DrawUtils.destroy();
-		SpriteLevelMixer.destroy();
 		InstancedFontRenderer.destroy();
 		InstancedParticleRenderer.destroy();
 		EffectPipelineFXAA.destroy();

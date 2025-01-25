@@ -10,6 +10,7 @@ import com.google.common.collect.Iterables;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.util.ResourceLocation;
 
 /**+
  * This portion of EaglercraftX contains deobfuscated Minecraft 1.8 source code.
@@ -17,7 +18,7 @@ import net.minecraft.block.properties.IProperty;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -76,5 +77,34 @@ public abstract class BlockStateBase implements IBlockState {
 		}
 
 		return stringbuilder.toString();
+	}
+
+	private int blockId = -1;
+	private int blockStateId = -1;
+	private int metadata = -1;
+	private ResourceLocation blockLocation = null;
+
+	public int getBlockId() {
+		if (this.blockId < 0) {
+			this.blockId = Block.getIdFromBlock(this.getBlock());
+		}
+
+		return this.blockId;
+	}
+
+	public int getBlockStateId() {
+		if (this.blockStateId < 0) {
+			this.blockStateId = Block.getStateId(this);
+		}
+
+		return this.blockStateId;
+	}
+
+	public int getMetadata() {
+		if (this.metadata < 0) {
+			this.metadata = this.getBlock().getMetaFromState(this);
+		}
+
+		return this.metadata;
 	}
 }

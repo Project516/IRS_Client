@@ -14,7 +14,7 @@ import com.google.common.collect.Maps;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -52,7 +52,7 @@ public enum EnumFacing implements IStringSerializable {
 	/**+
 	 * All Facings with horizontal axis in order S-W-N-E
 	 */
-	private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
+	public static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
 	private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.newHashMap();
 
 	private EnumFacing(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn,

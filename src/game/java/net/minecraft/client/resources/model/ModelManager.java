@@ -12,7 +12,7 @@ import net.minecraft.util.IRegistry;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -32,16 +32,22 @@ public class ModelManager implements IResourceManagerReloadListener {
 	private final BlockModelShapes modelProvider;
 	private IBakedModel defaultModel;
 
+	public ModelBakery modelbakerytmp; // eagler hack
+
 	public ModelManager(TextureMap textures) {
 		this.texMap = textures;
 		this.modelProvider = new BlockModelShapes(this);
 	}
 
 	public void onResourceManagerReload(IResourceManager iresourcemanager) {
-		ModelBakery modelbakery = new ModelBakery(iresourcemanager, this.texMap, this.modelProvider);
-		this.modelRegistry = modelbakery.setupModelRegistry();
-		this.defaultModel = (IBakedModel) this.modelRegistry.getObject(ModelBakery.MODEL_MISSING);
-		this.modelProvider.reloadModels();
+		modelbakerytmp = new ModelBakery(iresourcemanager, this.texMap, this.modelProvider);
+		try {
+			this.modelRegistry = modelbakerytmp.setupModelRegistry();
+			this.defaultModel = (IBakedModel) this.modelRegistry.getObject(ModelBakery.MODEL_MISSING);
+			this.modelProvider.reloadModels();
+		} finally {
+			modelbakerytmp = null;
+		}
 	}
 
 	public IBakedModel getModel(ModelResourceLocation modelLocation) {

@@ -65,7 +65,7 @@ import net.minecraft.util.ResourceLocation;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -306,7 +306,7 @@ public class BlockModelShapes {
 
 				return new ModelResourceLocation(
 						(ResourceLocation) Block.blockRegistry.getNameForObject(iblockstate.getBlock()),
-						this.getPropertyString(linkedhashmap));
+						getPropertyString(linkedhashmap));
 			}
 		});
 		this.registerBlockWithStateMapper(Blocks.melon_stem, new StateMapperBase() {
@@ -318,7 +318,7 @@ public class BlockModelShapes {
 
 				return new ModelResourceLocation(
 						(ResourceLocation) Block.blockRegistry.getNameForObject(iblockstate.getBlock()),
-						this.getPropertyString(linkedhashmap));
+						getPropertyString(linkedhashmap));
 			}
 		});
 		this.registerBlockWithStateMapper(Blocks.dirt, new StateMapperBase() {
@@ -329,7 +329,7 @@ public class BlockModelShapes {
 					linkedhashmap.remove(BlockDirt.SNOWY);
 				}
 
-				return new ModelResourceLocation(s, this.getPropertyString(linkedhashmap));
+				return new ModelResourceLocation(s, getPropertyString(linkedhashmap));
 			}
 		});
 		this.registerBlockWithStateMapper(Blocks.double_stone_slab, new StateMapperBase() {

@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer;
 
-import java.util.Collection;
+import java.util.List;
 
 import net.lax1dude.eaglercraft.v1_8.opengl.GlStateManager;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -15,7 +15,7 @@ import net.minecraft.potion.PotionEffect;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -76,7 +76,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 		int i = this.guiLeft - 124;
 		int j = this.guiTop;
 		boolean flag = true;
-		Collection collection = this.mc.thePlayer.getActivePotionEffects();
+		List<PotionEffect> collection = this.mc.thePlayer.getActivePotionEffectsList();
 		if (!collection.isEmpty()) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			GlStateManager.disableLighting();
@@ -86,7 +86,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 				k = 132 / (collection.size() - 1);
 			}
 
-			for (PotionEffect potioneffect : this.mc.thePlayer.getActivePotionEffects()) {
+			for (PotionEffect potioneffect : collection) {
 				Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 				this.mc.getTextureManager().bindTexture(inventoryBackground);

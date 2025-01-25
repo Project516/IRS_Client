@@ -13,7 +13,7 @@ import net.minecraft.world.World;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -37,13 +37,13 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 		field_176608_l = iconName;
 	}
 
-	public void updateAnimation(IFramebufferGL[] copyColorFramebuffer) {
+	public void updateAnimation() {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		if (minecraft.theWorld != null && minecraft.thePlayer != null) {
 			this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ,
-					(double) minecraft.thePlayer.rotationYaw, false, false, copyColorFramebuffer);
+					(double) minecraft.thePlayer.rotationYaw, false, false);
 		} else {
-			this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false, copyColorFramebuffer);
+			this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false);
 		}
 
 	}
@@ -53,7 +53,7 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 	 * direction
 	 */
 	public void updateCompass(World worldIn, double parDouble1, double parDouble2, double parDouble3, boolean parFlag,
-			boolean parFlag2, IFramebufferGL[] copyColorFramebuffer) {
+			boolean parFlag2) {
 		if (!this.framesTextureData.isEmpty()) {
 			double d0 = 0.0D;
 			if (worldIn != null && !parFlag) {
@@ -94,10 +94,17 @@ public class TextureCompass extends EaglerTextureAtlasSprite {
 
 			if (i != this.frameCounter) {
 				this.frameCounter = i;
-				animationCache.copyFrameLevelsToTex2D(this.frameCounter, this.originX, this.originY, this.width,
-						this.height, copyColorFramebuffer);
+				currentAnimUpdater = (mapWidth, mapHeight, mapLevel) -> {
+					animationCache.copyFrameToTex2D(this.frameCounter, mapLevel, this.originX >> mapLevel,
+							this.originY >> mapLevel, this.width >> mapLevel, this.height >> mapLevel, mapWidth,
+							mapHeight);
+				};
+			} else {
+				currentAnimUpdater = null;
 			}
 
+		} else {
+			currentAnimUpdater = null;
 		}
 	}
 

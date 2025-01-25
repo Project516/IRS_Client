@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.Tessellator;
  * Minecraft 1.8.8 bytecode is (c) 2015 Mojang AB. "Do not distribute!"
  * Mod Coder Pack v9.18 deobfuscation configs are (c) Copyright by the MCP Team
  * 
- * EaglercraftX 1.8 patch files (c) 2022-2024 lax1dude, ayunami2000. All Rights Reserved.
+ * EaglercraftX 1.8 patch files (c) 2022-2025 lax1dude, ayunami2000. All Rights Reserved.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -177,17 +177,7 @@ public class ModelRenderer {
 					GlStateManager.pushMatrix();
 					GlStateManager.translate(this.rotationPointX * parFloat1, this.rotationPointY * parFloat1,
 							this.rotationPointZ * parFloat1);
-					if (this.rotateAngleZ != 0.0F) {
-						GlStateManager.rotate(this.rotateAngleZ * 57.295776F, 0.0F, 0.0F, 1.0F);
-					}
-
-					if (this.rotateAngleY != 0.0F) {
-						GlStateManager.rotate(this.rotateAngleY * 57.295776F, 0.0F, 1.0F, 0.0F);
-					}
-
-					if (this.rotateAngleX != 0.0F) {
-						GlStateManager.rotate(this.rotateAngleX * 57.295776F, 1.0F, 0.0F, 0.0F);
-					}
+					GlStateManager.rotateZYXRad(this.rotateAngleX, this.rotateAngleY, this.rotateAngleZ);
 
 					GlStateManager.callList(this.displayList);
 					if (this.childModels != null) {
@@ -214,17 +204,9 @@ public class ModelRenderer {
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(this.rotationPointX * parFloat1, this.rotationPointY * parFloat1,
 						this.rotationPointZ * parFloat1);
-				if (this.rotateAngleY != 0.0F) {
-					GlStateManager.rotate(this.rotateAngleY * 57.295776F, 0.0F, 1.0F, 0.0F);
-				}
 
-				if (this.rotateAngleX != 0.0F) {
-					GlStateManager.rotate(this.rotateAngleX * 57.295776F, 1.0F, 0.0F, 0.0F);
-				}
-
-				if (this.rotateAngleZ != 0.0F) {
-					GlStateManager.rotate(this.rotateAngleZ * 57.295776F, 0.0F, 0.0F, 1.0F);
-				}
+				// note: vanilla order for this function is YXZ not ZYX for some reason
+				GlStateManager.rotateZYXRad(this.rotateAngleX, this.rotateAngleY, this.rotateAngleZ);
 
 				GlStateManager.callList(this.displayList);
 				GlStateManager.popMatrix();
@@ -250,17 +232,7 @@ public class ModelRenderer {
 				} else {
 					GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale,
 							this.rotationPointZ * scale);
-					if (this.rotateAngleZ != 0.0F) {
-						GlStateManager.rotate(this.rotateAngleZ * 57.295776F, 0.0F, 0.0F, 1.0F);
-					}
-
-					if (this.rotateAngleY != 0.0F) {
-						GlStateManager.rotate(this.rotateAngleY * 57.295776F, 0.0F, 1.0F, 0.0F);
-					}
-
-					if (this.rotateAngleX != 0.0F) {
-						GlStateManager.rotate(this.rotateAngleX * 57.295776F, 1.0F, 0.0F, 0.0F);
-					}
+					GlStateManager.rotateZYXRad(this.rotateAngleX, this.rotateAngleY, this.rotateAngleZ);
 				}
 
 			}
