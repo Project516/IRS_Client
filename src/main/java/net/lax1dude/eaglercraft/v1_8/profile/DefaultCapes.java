@@ -48,7 +48,7 @@ public enum DefaultCapes {
 	_MCC(26, "Minecraft Championship", new ResourceLocation("eagler:capes/26.mcc.png")),
 	EXPERIENCE(27, "Mojang Experience", new ResourceLocation("eagler:capes/27.experience.png")),
 	OFFICE(28, "Mojang Office", new ResourceLocation("eagler:capes/28.office.png")),
-	CHINA(29, "Chinese Translator", new ResourceLocation("eagler:capes/29.chine.png")),
+	CHINA(29, "Chinese Translator", new ResourceLocation("eagler:capes/29.china.png")),
 	JAPAN(30, "Japanese Translator", new ResourceLocation("eagler:capes/30.japan.png")),
 	TURTLE(31, "Turtle", new ResourceLocation("eagler:capes/31.turtle.png")),
 	VALENTINE(32, "Valentine", new ResourceLocation("eagler:capes/32.valentine.png")),
