@@ -57,7 +57,7 @@ teavm.js {
     obfuscated = true
     sourceMap = true
     targetFileName = "../" + name
-    optimization = OptimizationLevel.BALANCED // Change to "AGGRESSIVE" for release
+    optimization = OptimizationLevel.BALANCED // Change to "AGGRESSIVE" for release (Default: "BALANCED")
     outOfProcess = false
     fastGlobalAnalysis = false
     processMemory = 512
