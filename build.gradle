@@ -32,11 +32,12 @@ sourceSets {
                     "src/game/java",
                     "src/protocol-game/java",
                     "src/protocol-relay/java",
-                    "src/lwjgl/java",
-            )
+                    "src/lwjgl/java")
+
         }
     }
 }
+
 
 repositories {
     mavenCentral()
@@ -57,7 +58,7 @@ teavm.js {
     obfuscated = true
     sourceMap = true
     targetFileName = "../" + name
-    optimization = OptimizationLevel.BALANCED // Change to "AGGRESSIVE" for release (Default: "BALANCED")
+    optimization = OptimizationLevel.BALANCED // Change to "AGGRESSIVE" for release
     outOfProcess = false
     fastGlobalAnalysis = false
     processMemory = 512
@@ -83,16 +84,17 @@ tasks.named("generateJavaScript") {
     }
 }
 
-tasks.register('desktopRun', JavaExec) {
+
+tasks.register("desktopRun", JavaExec) {
     classpath = sourceSets.desktop.compileClasspath
-    group = "EaglercraftX Client"
+    group = "EaglercraftX Desktop"
     description = "Runs the client"
     classpath sourceSets.desktop.runtimeClasspath
     if (System.getProperty("os.name").toLowerCase().contains("mac")) {
         jvmArgs '-XstartOnFirstThread'
     }
 
-    args = ["hide-renderdoc", "vulkan"]
+    args = ["hide-renderdoc", "opengl"]
     workingDir "./desktopRuntime"
     main 'net.lax1dude.eaglercraft.v1_8.internal.lwjgl.MainClass'
 }
