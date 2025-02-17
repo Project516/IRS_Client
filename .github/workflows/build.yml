@@ -22,7 +22,7 @@ jobs:
       - name: Compile assets
         run: bash ./CompileEPK.sh
       - name: Make Offline Download
-        run: bash ./MakeOfflineDownload.bat
+        run: bash ./MakeOfflineDownload.sh
       - name: Upload github-pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
