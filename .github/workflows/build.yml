@@ -26,8 +26,6 @@ jobs:
           bash ./CompileEPK.sh &&
           bash ./CompileWASM.sh &&
           bash ./CompileEagRuntimeJS.sh &&
-          bash ./CompileBootstrapJS.sh &&
-          bash ./CompileLoaderWASM.sh &&
           bash ./MakeWASMClientBundle.sh &&
           cd ..
       - name: Upload github-pages artifact
