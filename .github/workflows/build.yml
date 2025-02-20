@@ -19,7 +19,7 @@ jobs:
         uses: gradle/actions/wrapper-validation@v4
       - name: Compile JSCLient
         run: ./gradlew generateJavaScript &&
-          bash ./CompileEPk.sh &&
+          bash ./CompileEPK.sh &&
           bash ./MakeOfflineDownload.sh
       - name: Compile WASMClient
         run: cd ./wasm_gc_teavm &&
