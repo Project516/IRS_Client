@@ -1,5 +1,5 @@
 name: Build
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -16,13 +16,20 @@ jobs:
           java-version: "21"
           cache: "gradle"
       - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v3
-      - name: Compile code to javascript
-        run: ./gradlew generateJavaScript
-      - name: Compile assets
-        run: bash ./CompileEPK.sh
-      - name: Make Offline Download
-        run: bash ./MakeOfflineDownload.sh
+        uses: gradle/actions/wrapper-validation@v4
+      - name: Compile JSCLient
+        run: ./gradlew generateJavaScript &&
+          bash ./CompileEPk.sh &&
+          bash ./MakeOfflineDownload.sh
+      - name: Compile WASMClient
+        run: cd ./wasm_gc_teavm &&
+          bash ./CompileEPK.sh &&
+          bash ./CompileWASM.sh &&
+          bash ./CompileEagRuntimeJS.sh &&
+          bash ./CompileBootstrapJS.sh &&
+          bash ./CompileLoaderWASM.sh &&
+          bash ./MakeWASMClientBundle.sh &&
+          cd ..
       - name: Upload github-pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
