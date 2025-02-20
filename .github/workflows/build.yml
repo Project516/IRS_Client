@@ -21,13 +21,6 @@ jobs:
         run: ./gradlew generateJavaScript &&
           bash ./CompileEPK.sh &&
           bash ./MakeOfflineDownload.sh
-      - name: Compile WASMClient
-        run: cd ./wasm_gc_teavm &&
-          bash ./CompileEPK.sh &&
-          bash ./CompileWASM.sh &&
-          bash ./CompileEagRuntimeJS.sh &&
-          bash ./MakeWASMClientBundle.sh &&
-          cd ..
       - name: Upload github-pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
