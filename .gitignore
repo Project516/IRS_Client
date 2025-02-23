@@ -16,4 +16,3 @@ desktopRuntime/downloads/*
 desktopRuntime/screenshots/*
 .vscode
 .idea
-/desktopRuntime/resources/assets/minecraft/*.bat
